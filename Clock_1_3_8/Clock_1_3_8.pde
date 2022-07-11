@@ -1314,7 +1314,7 @@ class ClockWindow extends PApplet {
   void keyPressed() { // ignore escape key
     if (key == ESC) {
       key = 0;
-      setVisible(false);
+      _clockWinManagerObj.setVisible(false);
     }
   }
 }
