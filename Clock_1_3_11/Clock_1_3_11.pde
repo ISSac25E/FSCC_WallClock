@@ -836,7 +836,7 @@ public class ClockWindowManager {
   private UDP _udp;
 
   private ClockWindow _clockWin;
-  //private int _managerId;
+  private int _managerId;
   private int _screenNum = 1;
   private boolean _visibility = false;
   private boolean _exit = false;
@@ -1068,6 +1068,10 @@ public class ClockWindowManager {
 
 class ClockWindow extends PApplet {
 
+  private String _typeCmd = "";
+  private int _typeCmdTimer = millis();
+  private final int _typeCmdTimeout = 3000;
+
   private int _screenNum;
   private boolean _vis = false;
   private boolean _prevVis = false;
@@ -1106,6 +1110,12 @@ class ClockWindow extends PApplet {
   }
 
   void draw() {
+    // cmd type timer check:
+    if (_typeCmd.length() > 0 && millis() - _typeCmdTimer >= _typeCmdTimeout) {
+      _typeCmd = "";
+    }
+
+
     if (_vis)
     {
       //reset background:
@@ -1125,9 +1135,6 @@ class ClockWindow extends PApplet {
       if (_vis)
         redraw();
       surface.setVisible(_vis);
-      surface.setAlwaysOnTop(false);
-      delay(5);
-      surface.setAlwaysOnTop(true);
     }
   }
 
@@ -1319,6 +1326,16 @@ class ClockWindow extends PApplet {
     if (key == ESC) {
       key = 0;
       _clockWinManagerObj.setVisible(false);
+    } else {
+      if (key >= '0' && key <= 'z') {
+        _typeCmdTimer = millis();
+        _typeCmd = _typeCmd + key;
+        if (_typeCmd.length() > "exit".length())
+          _typeCmd = _typeCmd.substring(1);
+        if (_typeCmd.toLowerCase().indexOf("exit") != -1) {
+          _clockWinManagerObj.setVisible(false);
+        }
+      }
     }
   }
 }
