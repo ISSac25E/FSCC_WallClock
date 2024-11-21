@@ -4,7 +4,7 @@ We had an issue where we couldn't find a proper wallclock software that was seam
 
 This project was developed as a custom solution to this issue.
 
-Is is a clean and customizable wallClock software that can be controlled via UDP commands.
+Is is a clean/fullscreen and customizable wallClock software that can be controlled via UDP commands.
 It has also been adapted to work together with BitFocus Companion to give live status updates
 
 This WallClock has been tested on Mac devices and Windows devices and is completely portable with a built in java runtime.
